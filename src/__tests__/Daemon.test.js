@@ -31,6 +31,11 @@ test('throw error during method levelUp? if health = 0', () => {
   expectDaemon.health = 0;
   expect(() => expectDaemon.levelUp()).toThrowError();
 });
+test('throw error during method levelUp? if health < 0', () => {
+  const expectDaemon = new Daemon('Ivan', 'Daemon');
+  expectDaemon.health = -1;
+  expect(() => expectDaemon.levelUp()).toThrowError();
+});
 test('method damage(points) shoud upgrade health correctly', () => {
   const expectDaemon = new Daemon('Ivan', 'Daemon');
   expectDaemon.damage(20);
@@ -44,4 +49,17 @@ test('method damage(points) shoud upgrade health correctly', () => {
   };
 
   expect(expectDaemon).toEqual(expectedObject);
+});
+test('health = 0 if this.health < 0', () => {
+  const testDaemon = new Daemon('Ivan', 'Daemon');
+  const expectedHealth = 0;
+  testDaemon.damage(170);
+  expect(testDaemon.health).toEqual(expectedHealth);
+});
+test('Method damage shoul not change healt,if this.health=0', () => {
+  const testDaemon = new Daemon('Ivan', 'Daemon');
+  testDaemon.health = 0;
+  const expectedHealth = 0;
+  testDaemon.damage(100);
+  expect(testDaemon.health).toEqual(expectedHealth);
 });
